@@ -33,7 +33,7 @@ func (self *InstagramMediaDownloader) ParseResponse(response Response) []*Instag
 
    if response.GraphQl.ShortCodeMedia.EdgeSidecarToChildren.Edges == nil {
        var node Node
-       str, _ := json.Marshal(response)
+       str, _ := json.Marshal(response.GraphQl.ShortCodeMedia)
        json.Unmarshal(str, &node)
        medias = append(medias, NewInstagramMedia(node))
        return medias
