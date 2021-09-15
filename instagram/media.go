@@ -1,9 +1,10 @@
 package instagram
 
 import (
-    "crypto/md5"
-    "encoding/hex"
-    "github.com/gocolly/colly"
+	"fmt"
+	"crypto/md5"
+	"encoding/hex"
+	"github.com/gocolly/colly"
 )
 
 type InstagramMedia struct {
@@ -26,6 +27,11 @@ func NewInstagramMedia(node Node) *InstagramMedia {
 
 func (self *InstagramMedia) Download() {
     c := colly.NewCollector()
+
+    c.OnRequest(func(r *colly.Request) {
+        fmt.Println()
+        fmt.Println(r.URL)
+    })
 
     c.OnResponse(func(r *colly.Response) {
         sum      := md5.Sum(r.Body)
